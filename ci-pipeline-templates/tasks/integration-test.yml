@@ -1,0 +1,10 @@
+steps:
+  - task: Bash@3
+    displayName: "Run Integration tests"
+    inputs:
+      targetType: "inline"
+      script: |
+        # Add code to run integration tests here
+      workingDirectory: "$(system.defaultWorkingDirectory)"
+    env: # Make available sensitive secrets from ADO variable group to task
+      SAMPLE_SECRET_FROM_VG: $(SAMPLE_SECRET_FROM_VG)

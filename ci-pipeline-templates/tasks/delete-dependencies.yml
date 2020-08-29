@@ -1,0 +1,15 @@
+steps:
+  - task: AzureCLI@2
+    displayName: "Delete testing dependent resources"
+    condition: always() # this step will always run, even if the pipeline is cancelled
+    inputs:
+      azureSubscription: "$(SERVICE_PRINCIPAL_NAME)"
+      scriptType: "bash"
+      scriptLocation: "inlineScript"
+      inlineScript: |
+        # Add code to delete dependencies here if needed.
+
+      useGlobalConfig: true
+      failOnStandardError: true
+    env: # Make available sensitive secrets from ADO variable group to task
+      SAMPLE_SECRET_FROM_VG: $(SAMPLE_SECRET_FROM_VG)

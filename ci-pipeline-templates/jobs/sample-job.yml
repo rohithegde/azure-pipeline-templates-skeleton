@@ -1,0 +1,4 @@
+jobs:
+  - job: Sample_Job
+    steps:
+      - template: ../tasks/sample-task.yml

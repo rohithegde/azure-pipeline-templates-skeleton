@@ -1,0 +1,11 @@
+steps:
+  - task: Bash@3
+    displayName: "Inject CI Pipeline variables"
+    inputs:
+      targetType: "inline"
+      script: |
+        # Add code to inject vars into scripts here if needed.
+
+      workingDirectory: "$(system.defaultWorkingDirectory)"
+    env: # Make available sensitive secrets from ADO variable group to task
+      SAMPLE_SECRET_FROM_VG: $(SAMPLE_SECRET_FROM_VG)

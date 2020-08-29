@@ -1,0 +1,38 @@
+parameters:
+  - name: 'build_repo_name'
+    type: string
+    default: ''
+
+stages:
+  - stage: Alpha
+    variables:
+      - group: ${{ format('{0}-alpha', parameters.build_repo_name) }}
+    pool:
+      vmImage: "ubuntu-latest"
+    jobs:
+      - template: ../jobs/deployment.yml
+        parameters:
+          env_lower_case: 'alpha'
+          env_pascal_case: 'Alpha'
+  # Manual approval step added in the portal 'environment' tab for below env
+  - stage: Beta
+    variables:
+      - group: ${{ format('{0}-beta', parameters.build_repo_name) }}
+    pool:
+      vmImage: "ubuntu-latest"
+    jobs:
+      - template: ../jobs/deployment.yml
+        parameters:
+          env_lower_case: 'beta'
+          env_pascal_case: 'Beta'
+  # Manual approval step added in the portal 'environment' tab for below env
+  - stage: Prod
+    variables:
+      - group: ${{ format('{0}-prod', parameters.build_repo_name) }}
+    pool:
+      vmImage: "ubuntu-latest"
+    jobs:
+      - template: ../jobs/deployment.yml
+        parameters:
+          env_lower_case: 'prod'
+          env_pascal_case: 'Prod'

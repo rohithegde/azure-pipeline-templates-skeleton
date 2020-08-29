@@ -1,0 +1,4 @@
+variables:
+  - group: ci-shared-vars
+  - name: name_prefix
+    value: "ci"

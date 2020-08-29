@@ -1,0 +1,15 @@
+parameters:
+- name: 'env_upper_case'
+  type: string
+
+steps:
+- task: Bash@3
+  displayName: ${{ format('Deploy to {0}', parameters.env_upper_case) }}
+  inputs:
+    targetType: 'inline'
+    script: |
+      # Access tagged image from container registry and deploy to app service or VM or cluster
+
+    workingDirectory: "$(System.DefaultWorkingDirectory)"
+    useGlobalConfig: true
+    failOnStandardError: true

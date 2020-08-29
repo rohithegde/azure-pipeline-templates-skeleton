@@ -1,0 +1,21 @@
+steps:
+  - task: UseGitVersion@5
+    displayName: "Calculate Git Version"
+    inputs:
+      versionSpec: "5.1.3"
+      useConfigFile: true
+      configFilePath: "git-version.yml"
+  - task: Bash@3
+    displayName: "Verify Git Version"
+    inputs:
+      targetType: "inline"
+      script: |
+        new_version="v$(GitVersion.MajorMinorPatch)"
+        # Patch for skipped version for new repo
+        if [ "${new_version}" == "v0.2.0" ]; then
+           dummy=$(git show v0.1.0) || new_version="v0.1.0"
+        fi
+        echo "Tag to be created : ${new_version}"
+        echo "##vso[task.setvariable variable=TASK_NEW_GIT_VERSION;]$new_version"
+      workingDirectory: "$(System.DefaultWorkingDirectory)"
+      failOnStderr: false # Needed since git outputs to stderror

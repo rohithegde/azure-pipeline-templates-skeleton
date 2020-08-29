@@ -1,0 +1,13 @@
+steps:
+  - task: Bash@3
+    displayName: "Git Tagging"
+    inputs:
+      targetType: "inline"
+      script: |
+        git config user.email "noreply@example.com"
+        git config user.name "Azure DevOps Pipeline"
+        content=$(git log -1 --pretty=%B 2>&1 | awk '/^CHANGELOG:$/{flag=1;next}/^(Versioning impact)+(.*)$/{flag=0}flag' | sed -e '/^$/d')
+        git tag -a "${TASK_NEW_GIT_VERSION}" -m "${content}"
+        git push origin "${TASK_NEW_GIT_VERSION}" -q
+      workingDirectory: "$(System.DefaultWorkingDirectory)"
+      failOnStderr: false # Needed since git outputs to stderror

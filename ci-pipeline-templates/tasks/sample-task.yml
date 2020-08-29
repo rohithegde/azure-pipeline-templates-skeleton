@@ -1,0 +1,7 @@
+steps:
+  - task: Bash@3
+    displayName: "Sample task"
+    inputs:
+      targetType: "inline"
+      script: |
+        # Add code to do something

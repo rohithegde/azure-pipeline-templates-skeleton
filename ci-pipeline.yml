@@ -1,0 +1,10 @@
+trigger:
+  - master
+
+stages:
+  - stage: Publish
+    condition: in(variables['Build.SourceBranch'], 'refs/heads/master')
+    pool:
+      vmImage: "ubuntu-latest"
+    jobs:
+      - template: ci-pipeline-templates/jobs/publish.yml # Template reference

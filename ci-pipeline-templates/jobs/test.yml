@@ -1,0 +1,12 @@
+parameters:
+  - name: 'sample_flag'
+    type: boolean
+    default: false
+
+jobs:
+  - job: Test
+    steps:
+      - template: ../tasks/create-dependencies.yml # Template reference
+      - template: ../tasks/unit-test.yml # Template reference
+      - template: ../tasks/integration-test.yml # Template reference
+      - template: ../tasks/delete-dependencies.yml # Template reference

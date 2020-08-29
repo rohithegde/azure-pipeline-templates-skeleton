@@ -1,0 +1,20 @@
+parameters:
+- name: 'env_lower_case'
+  type: string
+- name: 'env_pascal_case'
+  type: string
+
+jobs:
+- deployment: ${{ parameters.env_pascal_case }}_Deployment
+  displayName: ${{ parameters.env_pascal_case }} deployment
+  # creates an environment alias if it doesn't exist
+  environment: Web_${{ parameters.env_pascal_case }}
+  strategy: 
+    runOnce:
+      deploy:
+        steps:
+        - checkout: self
+        - template: ../tasks/setup-ssh.yml # Needed only if a specific account is used for downloading the repo
+        - template: ../tasks/deploy.yml
+          parameters:
+            container_name: ${{ parameters.env_upper_case }}

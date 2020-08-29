@@ -1,0 +1,9 @@
+steps:    
+  # Ref : https://docs.microsoft.com/en-us/azure/devops/pipelines/tasks/utility/install-ssh-key?view=azure-devops
+  - task: InstallSSHKey@0
+    displayName: "Install SSH key from secure file uploaded and variable group"
+    inputs:
+      knownHostsEntry: $(GIT_KNOWN_HOSTS)
+      sshPublicKey: $(GIT_PUBLIC_KEY)
+      #sshPassphrase: # Optional
+      sshKeySecureFile: pipeline.key

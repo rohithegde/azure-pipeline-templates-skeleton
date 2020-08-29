@@ -1,0 +1,24 @@
+parameters:
+  - name: 'sample_flag'
+    type: boolean
+    default: false
+
+stages:
+- stage: Sample_Pre_Test_Stage
+  pool:
+    vmImage: "ubuntu-latest"
+  jobs:
+  - template: ../jobs/sample-job.yml
+- stage: Test
+  pool:
+    vmImage: "ubuntu-latest"
+  jobs:
+  - template: ../jobs/test.yml
+    parameters:
+      sample_flag: "${{ parameters.sample_flag }}"
+- stage: Publish
+  condition: and(succeeded(), in(variables['Build.SourceBranch'], 'refs/heads/master'))
+  pool:
+    vmImage: "ubuntu-latest"
+  jobs:
+    - template: ../jobs/publish.yml

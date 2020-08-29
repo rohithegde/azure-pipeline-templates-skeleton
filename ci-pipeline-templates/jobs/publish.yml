@@ -1,0 +1,9 @@
+jobs:
+  - job: Publish_to_Git
+    steps:
+      - checkout: self
+        persistCredentials: true
+        clean: true
+      - template: ../tasks/calculate-git-version.yml
+      - template: ../tasks/tag-in-git.yml
+

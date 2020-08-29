@@ -1,0 +1,4 @@
+variables:
+- group: cd-shared-vars
+- name: name_prefix
+  value: "cd"
