@@ -36,7 +36,7 @@ resources:
     - repository: common
       type: git
       name: ado-org-name/azure-pipeline-templates-skeleton
-      ref: refs/heads/master
+      ref: refs/heads/master # OR USE ref: refs/tags/v1.0
 
 variables:
   - template: ci-pipeline-templates/variables/vars.yml@common # Template reference
